@@ -1,0 +1,30 @@
+﻿@model IEnumerable<InviteMe.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container-fluid px-4">
+    <h1 class="mt-4">My Events</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Events</li>
+    </ol>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-4">
+                <div class="card" style="width:400px">
+                    <img class="card-img-top" src="~/images/@item.ImageUrl" alt="Card image">
+                    <div class="card-body">
+                        <h4 class="card-title">@item.Name</h4>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-footer">@item.EventDateTime.ToString("dddd, dd MMMM yyyy  hh:mm tt")</p>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">View Event</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

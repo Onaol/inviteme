@@ -1,0 +1,53 @@
+﻿@using InviteMe.Views.Shared;
+@using InviteMe.Models;
+@using InviteMe.Extensions;
+@using QRCoder;
+@using System.Drawing;
+@model Invite;
+
+
+@{
+    Layout = "InviteMe.Views.Shared._EmailLayout.cshtml";
+}
+
+<p>
+    Dear @(Model.Contact.FirstName + " " + Model.Contact.LastName), <br /> <br />
+    We are excited to invite you to out event @(Model.Event.Name) with more details below
+</p>
+
+<br />
+
+<p>
+    Venue: @(Model.Event.AddressFirstLine+" "+Model.Event.AddressSecondLine) <br/>
+
+    Date/Time: @(Model.Event.EventDateTime.ToString("dddd, dd MMMM yyyy  hh:mm tt"))
+
+</p>
+
+<br/>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
+            <table border="0" cellspacing="0" cellpadding="0">                
+                <tr>
+                    <td align="center" style="border-radius: 3px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg" width="400" height="400">
+                    </td>
+                <tr>
+                    <td align="center" style="border-radius: 3px;" bgcolor="#539be2">
+                        <a href="#" target="_blank" style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #539be2; display: inline-block;">
+                            @Model.UniqueInviteKey
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<br />
+
+<p>
+    If you have any questions, just reply to this email—we're always happy to help out.
+</p>

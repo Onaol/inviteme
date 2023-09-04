@@ -1,0 +1,112 @@
+﻿@model InviteMe.Models.Event
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container-fluid px-4">
+    <h1 class="mt-4">@(Model.Name)</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">@(Model.Description)</li>
+    </ol>
+
+    <div class="row">
+        <div class="col-6">
+            <div class="card p-1">
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.AddressFirstLine)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.AddressFirstLine)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.AddressSecondLine)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.AddressSecondLine)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.AddressThirdLine)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.AddressThirdLine)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.PostCode)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.PostCode)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.MapUrl)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.MapUrl)
+                        </dd>
+                    </dl>
+                </div>
+                <div class="footer">
+                    <div class="offset-4">
+                        <form asp-action="InviteContacts" method="post">
+                            <input value="@Model.Id" name="EventId" type="hidden"  />
+                            <input type="submit" value="Invite My Contacts" class="btn btn-primary" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 mt-3">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Invites
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>last Name</th>
+                        <th>Email</th>
+                        <th>Attendance Key</th>                        
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>First Name</th>
+                        <th>last Name</th>
+                        <th>Email</th>
+                        <th>Attendance Key</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model.Invites)
+                    {
+                    <tr>
+                        <td>@item.Contact.FirstName</td>
+                        <td>@item.Contact.LastName</td>
+                        <td>@item.Contact.Email</td>
+                        <td>@item.UniqueInviteKey</td>                      
+                        <td>@if (item.TimeCheckedIn == DateTime.MinValue)
+                                {
+                                    <form method="post" asp-action="checkin">
+                                        <input name="id" value="@item.Id" type="hidden">
+                                        <button type="submit" class="btn btn-sm btn-secondary">Check-in</button>
+                                    </form>
+                                }else
+                                {
+                                    <a class="btn btn-sm btn-success">Checked-in</a>
+                                }                       
+                        </td>
+                    </tr>                                                    
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
